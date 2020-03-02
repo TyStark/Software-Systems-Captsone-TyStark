@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS esportsClothing;
-CREATE DATABASE IF NOT EXISTS esportsClothing;
-USE esportsClothing;
+DROP DATABASE IF EXISTS esports;
+CREATE DATABASE IF NOT EXISTS esports;
+USE esports;
 
-DROP USER IF EXISTS 'esportsClothing'@'localhost';
-CREATE USER 'esportsClothing'@'localhost' IDENTIFIED BY 'L3W15 35P0RT5';
-GRANT SELECT, INSERT, UPDATE, DELETE ON esportsClothing.* TO 'esportsClothing'@'localhost';
+DROP USER IF EXISTS 'esports'@'localhost';
+CREATE USER 'esportsadmin'@'localhost' IDENTIFIED BY 'L3W15 35P0RT5';
+GRANT SELECT, INSERT, UPDATE, DELETE ON esports.* TO 'esports'@'localhost';
 
 DROP TABLE IF EXISTS members;
 CREATE TABLE members (
@@ -53,6 +53,7 @@ CREATE TABLE clothingOrder (
     memberId INT NOT NULL,
     clothingId INT NOT NULL,
     clothingSize VARCHAR(3) NOT NULL,
+    received BOOLEAN DEFAULT 0,
     orderDate DATE DEFAULT CURRENT_DATE(),
     CONSTRAINT clothingOrder_fk_members FOREIGN KEY(memberId)
         REFERENCES members(memberId)

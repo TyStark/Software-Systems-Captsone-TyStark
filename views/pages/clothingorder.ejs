@@ -1,0 +1,44 @@
+<%- include("publicheader") -%>
+
+    <div class="w3-third w3-black">
+        Clothing
+    </div>
+    Lewis Esports
+
+    <div class="w3-container">
+        <h3>Add Order</h3>
+        <form action="/clothingorder" method="post">
+            <p>First Name: <input class="w3-input w3-border w3-light-grey" type="text" name="firstName" maxlength="13" size="13" /></p>
+            <p>Last Name: <input class="w3-input w3-border w3-light-grey" type="text" name="lastName" maxlength="30" size="30" /></p>
+            <p>Type: <select class="w3-select w3-border" name="clothingType">
+                <option value="camo shortsleeve">Camo short sleeve</option>
+                <option value="hoodie">Hoodie</option>
+            </select></p>
+            <p>Color: <select class="w3-select w3-border" name="clothingColor">
+                <option value="red">Red</option>
+                <option value="black">Black</option>
+            </select></p>
+            <p>Size: <select class="w3-select w3-border" name="clothingSize">
+               <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+               <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+            </select></p>
+
+         <input class="top-margin w3-button w3-black" type="submit" name="submit" value="Add Order" />
+        </form>
+    </div>
+
+    <script>
+        function myFunction() {
+          var x = document.getElementById("nav");
+          if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+          } else { 
+            x.className = x.className.replace(" w3-show", "");
+          }
+        }
+    </script>
+</body>
+</html>
