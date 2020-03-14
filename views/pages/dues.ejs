@@ -5,6 +5,30 @@
     </div>
     Lewis Esports
 
+    <form action="/documentdue" method="post">
+      <p>First Name: <input class="w3-input w3-border w3-light-grey" type="text" name="firstName" maxlength="13" size="13" /></p>
+      <p>Last Name: <input class="w3-input w3-border w3-light-grey" type="text" name="lastName" maxlength="30" size="30" /></p>
+      <p>Amount: <input class="w3-input w3-border w3-light-grey" type="number" name="amount" maxlength="3" size="30" /></p>
+      <input class="top-margin w3-button w3-black" type="submit" name="submit" value="Document due" /></p>
+  </form>
+
+  <ul>
+    <% for(var i=0; i<dues.length; i++) { %>
+      <li><%= dues[i].firstName %> <%= dues[i].lastName %> <%= dues[i].amountPaid %></li>
+    <% } %>
+  </ul>
+
+    <script>
+        function myFunction() {
+          var x = document.getElementById("nav");
+          if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+          } else { 
+            x.className = x.className.replace(" w3-show", "");
+          }
+        }
+    </script>
+
     <script>
         function myFunction() {
           var x = document.getElementById("nav");

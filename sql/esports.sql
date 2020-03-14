@@ -116,13 +116,13 @@ INSERT INTO clothing (clothingType, clothingColor, clothingPrice) VALUES ("hoodi
 
 INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberID FROM members WHERE firstname = "Tyler" AND lastname = "Starkus"), 15);
 INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Leonard" AND lastName = "Lucheck"), 30);
-INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Michael" AND lastName = "Bojarksi"), 15);
+INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Michael" AND lastName = "Bojarski"), 15);
 INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Brendan" AND lastName = "Cagampang"), 15);
 INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Yesenia" AND lastName = "Gonzalez"), 30);
 INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Ryan" AND lastName = "Corrigan"), 30);
 INSERT INTO dues (memberId, amountPaid) VALUES((SELECT memberId FROM members WHERE firstName = "Justin" AND lastName = "Ambrosio"), 40);
 
-INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberID FROM members WHERE firstname = "Tyler" AND lastName = "Starkus"), (SELECT clothingId FROM clothing WHERE clothingType = "camo shortsleeve" AND clothingColor = "red"), "M");
+INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstname = "Tyler" AND lastName = "Starkus"), (SELECT clothingId FROM clothing WHERE clothingType = "camo shortsleeve" AND clothingColor = "red"), "M");
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Leonard" AND lastName = "Lucheck"), (SELECT clothingId FROM clothing WHERE clothingType = "hoodie" AND clothingColor = "black"), "M");
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Michael" AND lastName = "Bojarski"), (SELECT clothingId FROM clothing WHERE clothingType = "camo shortsleeve" AND clothingColor = "red"), "S");
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Brendan" AND lastName = "Cagampang"), (SELECT clothingId FROM clothing WHERE clothingType = "camo shortsleeve" AND clothingColor = "red"), "S");
@@ -131,5 +131,13 @@ INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT m
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Justin" AND lastName = "Ambrosio"), (SELECT clothingId FROM clothing WHERE clothingType = "camo shortsleeve" AND clothingColor = "black"), "M");
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Justin" AND lastName = "Ambrosio"), (SELECT clothingId FROM clothing WHERE clothingType = "hoodie" AND clothingColor = "black"), "M");
 
-INSERT INTO team (teamName) VALUES("Lewis Fylers League of Legends");
-INSERT INTO team (teamName) VALUES("Lewis Fylers Gears 5");
+INSERT INTO teams (teamName) VALUES("Lewis Flyers League of Legends");
+INSERT INTO teams (teamName) VALUES("Lewis Flyers Gears 5");
+INSERT INTO teams (teamName) VALUES("Lewis Flyers Rocket League");
+
+INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = "Tyler" AND lastName = "Starkus"), (SELECT teamId FROM teams WHERE teamName = "Lewis Flyers League of Legends"), "active");
+INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = "Tyler" AND lastName = "Starkus"), (SELECT teamId FROM teams WHERE teamName = "Lewis Flyers Gears 5"), "active");
+INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = "Leonard" AND lastName = "Lucheck"), (SELECT teamId FROM teams WHERE teamName = "Lewis Flyers League of Legends"), "active");
+INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = "Michael" AND lastName = "Bojarski"), (SELECT teamId FROM teams WHERE teamName = "Lewis Flyers Rocket League"), "active");
+INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = "Michael" AND lastName = "Bojarski"), (SELECT teamId FROM teams WHERE teamName = "Lewis Flyers League of Legends"), "active");
+
