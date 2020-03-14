@@ -130,3 +130,6 @@ INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT m
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Ryan" AND lastName = "Corrigan"), (SELECT clothingId FROM clothing WHERE clothingType = "hoodie" AND clothingColor = "red"), "M");
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Justin" AND lastName = "Ambrosio"), (SELECT clothingId FROM clothing WHERE clothingType = "camo shortsleeve" AND clothingColor = "black"), "M");
 INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberId FROM members WHERE firstName = "Justin" AND lastName = "Ambrosio"), (SELECT clothingId FROM clothing WHERE clothingType = "hoodie" AND clothingColor = "black"), "M");
+
+INSERT INTO team (teamName) VALUES("Lewis Fylers League of Legends");
+INSERT INTO team (teamName) VALUES("Lewis Fylers Gears 5");

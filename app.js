@@ -18,6 +18,23 @@ var connection = mysql.createConnection({
     database: "esports"
   });
 
+var teams = [];
+
+var sqlTeams = "SELECT * FROM team;";
+connection.query(sqlTeams, function(err,result,fields){
+  if (err) throw err;
+  //console.log(result[0].teamName);
+  //test = String(result[0].teamName);
+
+  for(var i=0; i<result.length; i++)
+  {
+    //console.log(result[i].teamName);
+    teams.push(result[i].teamName);
+  }
+});
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 app.get('/', function(request,response){
     response.render(__dirname + '/views/pages/index');
 });
@@ -47,7 +64,29 @@ app.get('/dues', function(request,response){
 });
 
 app.get('/manageorders', function(request,response){
-    response.render(__dirname + '/views/pages/dues');
+    response.render(__dirname + '/views/pages/manageorders');
+});
+
+app.get('/teams', function(request,response){
+    response.render(__dirname + '/views/pages/teams', {teams: teams});
+
+});
+
+app.post('/addteam', function(request,response){
+    var newTeam = request.body.newTeam;
+
+    teams.push(newTeam);
+    //console.log(newTeam);
+    //response.render(__dirname + '/views/pages/teams', {teams: teams});
+
+    var sqlAddTeam = "INSERT INTO team (teamName) VALUES ('" + newTeam + "');";
+    //console.log(sqlAddTeam);
+    connection.query(sqlAddTeam, function(err,result){
+      if (err) throw err;
+      response.redirect("/teams");
+      //console.log("hi");
+    });
+    //response.redirect("/teams");
 });
 
 app.get('/admin', function(request,response){
