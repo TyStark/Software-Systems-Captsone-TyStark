@@ -1,9 +1,67 @@
-<%- include("padminheader") -%>
+<%- include("adminheader") -%>
 
 <div class="w3-third w3-black">
     Manage Orders
 </div>
 Lewis Esports
+<table class="w3-table-all">
+  <th>Orders</th>
+      <tr>
+        <td>First:</td>
+        <td>Last:</td>
+        <td>Type:</td>
+        <td>Color:</td>
+        <td>Size:</td>
+        <td>Received:</td>
+        <td></td>
+      </tr>
+    <% for(var i=0; i<orders.length; i++) { %>
+      <tr> 
+        <form action="/changeorder" method="post">
+          <input class="w3-hide" type="text" name="orderId" value="<%= orders[i].orderId %>" readonly>
+          <td><input type="text" name="firstName" value="<%= orders[i].firstName %>" readonly></td>
+          <td><input type="text" name="lastName" value="<%= orders[i].lastName %>" readonly></td>
+          <td><select class="w3-select w3-border" name="clothingType">
+                <option value="<%= orders[i].clothingType %>"><%= orders[i].clothingType %></option>
+              <% for(var j=0; j<clothingType.length; j++) { %>}
+                <option value="<%= clothingType[j].clothingType %>"><%= clothingType[j].clothingType %></option>
+              <% } %> 
+            </select>
+          </td>
+          <td><select class="w3-select w3-border" name="clothingColor">
+            <option value="<%= orders[i].clothingColor %>"><%= orders[i].clothingColor %></option>
+            <% for(var n=0; n<clothingColor.length; n++) { %>}
+              <option value="<%= clothingColor[n] %>"><%= clothingColor[n] %></option>
+            <% } %> 
+            </select>
+          </td>
+          <td><select class="w3-select w3-border" name="clothingSize">
+              <option value="<%= orders[i].clothingSize %>"><%= orders[i].clothingSize %></option>
+              <% for(var k=0; k<clothingSize.length; k++) { %>}
+                <option value="<%= clothingSize[k] %>"><%= clothingSize[k] %></option>
+              <% } %> 
+            </select>
+          </td>
+          <td><select class="w3-select w3-border" name="received">
+            <option value="<%= orders[i].received %>"><%= orders[i].received %></option>
+            <% for(var h=0; h<received.length; h++) { %>}
+              <option value="<%= received[h] %>"><%= received[h] %></option>
+            <% } %> 
+          </select>
+          </td> 
+          <td><input class="top-margin w3-button w3-black" type="submit" name="submit" value="Change" /></td>
+        </form>
+      </tr> 
+   <% } %>
+</table>
+
+<!--
+<ul>
+  <% for(var i=0; i<orders.length; i++) { %>
+    <li><%= orders[i].firstName %> <%= orders[i].lastNameName %> <%= orders[i].clothingType %> <%= orders[i].clothingSize %> <%= orders[i].received %></li>
+  <% } %>
+</ul>
+-->
 
 <script>
     function myFunction() {

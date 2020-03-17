@@ -24,6 +24,11 @@ var connection = mysql.createConnection({
 var teams = [];
 var registered = [];
 var dues = [];
+var orders = [];
+var clothingType = [];
+var clothingColor = ['red', 'black'];
+var clothingSize = ['S', 'M', 'L', "XL", "XXL"];
+var received = [0, 1];
 
 var sqlTeams = "SELECT * FROM teams;";
 connection.query(sqlTeams, function(err,result,fields){
@@ -73,6 +78,78 @@ connection.query(sqlDues, function(err,result,fields){
   }
 });
 
+var sqlOrders = "SELECT o.orderId, m.firstName, m.lastName, c.clothingType, c.clothingColor, o.clothingSize, o.received FROM clothingOrder o JOIN members m ON o.memberId = m.memberId JOIN clothing c ON o.clothingId = c.clothingId;";
+connection.query(sqlOrders, function(err,result,fields){
+  if (err) throw err;
+  //console.log(result[0].teamName);
+  //test = String(result[0].teamName);
+
+  for(var i=0; i<result.length; i++)
+  {
+    //console.log(result[i].teamName);
+    orders.push(result[i]);
+    //console.log("ok");
+    //console.log(result[i]);
+    //console.log(JSON.stringify(result[i]));
+    //console.log("hi");
+  }
+});
+
+var sqlClothingType = "SELECT DISTINCT clothingType FROM clothing;";
+connection.query(sqlClothingType, function(err,result,fields){
+  if (err) throw err;
+  //console.log(result[0].teamName);
+  //test = String(result[0].teamName);
+
+  for(var i=0; i<result.length; i++)
+  {
+    //console.log(result[i].teamName);
+    clothingType.push(result[i]);
+    //console.log("ok");
+    //console.log(result[i]);
+    //console.log(JSON.stringify(result[i]));
+    //console.log("hi");
+  }
+});
+
+/* COMMENTED B/C currently linked to order and not clothing
+var sqlClothingSize = "SELECT clothingSize FROM clothing;";
+connection.query(sqlClothingSize, function(err,result,fields){
+  if (err) throw err;
+  //console.log(result[0].teamName);
+  //test = String(result[0].teamName);
+
+  for(var i=0; i<result.length; i++)
+  {
+    //console.log(result[i].teamName);
+    clothingSize.push(result[i]);
+    //console.log("ok");
+    //console.log(result[i]);
+    //console.log(JSON.stringify(result[i]));
+    //console.log("hi");
+  }
+});
+*/
+
+/*
+var sqlReceived = "SELECT received FROM clothingOrder;";
+connection.query(sqlReceived, function(err,result,fields){
+  if (err) throw err;
+  //console.log(result[0].teamName);
+  //test = String(result[0].teamName);
+
+  for(var i=0; i<result.length; i++)
+  {
+    //console.log(result[i].teamName);
+    received.push(result[i]);
+    //console.log("ok");
+    //console.log(result[i]);
+    //console.log(JSON.stringify(result[i]));
+    //console.log("hi");
+  }
+});
+*/
+
 // GET
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -105,7 +182,7 @@ app.get('/dues', function(request,response){
 });
 
 app.get('/manageorders', function(request,response){
-    response.render(__dirname + '/views/pages/manageorders');
+    response.render(__dirname + '/views/pages/manageorders', {orders: orders, clothingType: clothingType, clothingColor: clothingColor, clothingSize: clothingSize, received: received});
 });
 
 app.get('/teams', function(request,response){
@@ -206,6 +283,51 @@ app.post('/documentdue', function(request,response){
     });
 
     //response.redirect("/registration");
+});
+
+app.post('/changeorder', function(request,response){
+  var orderId = request.body.orderId;
+  var firstName = request.body.firstName;
+  var lastName = request.body.lastName;
+  var type = request.body.clothingType;
+  var color = request.body.clothingColor;
+  var size = request.body.clothingSize;
+  var isReceived = request.body.received;
+
+  //console.log(firstName);
+  //console.log(lastName);
+  //console.log(type);
+  //console.log(color);
+  //console.log(size);
+  //console.log(isReceived);
+
+
+  var editedOrderString = '{"orderId": "'+ orderId +'", firstName":  "'+ firstName +'" , "lastName":  "'+ lastName +'" , "clothingType": "'+ type +'", "clothingColor": "'+ color +'", "clothingSize": "'+ size +'", "recieved": "'+ isReceived +'",}';
+  //console.log("lololol");
+  //console.log(newDueString);
+  var editedOrder = JSON.parse(editedOrderString)
+
+  // FIND INDEX OF ORDER TO ALTER IT
+  console.log()orders
+  for(var i=0; i<orders.length; i++){
+    if(orders[i].orderId == orderId)
+      orders.splice(i,1);
+      console.log(orders);
+  }
+  //console.log(orders.findIndex("Tyler"));
+  //console.log();
+  //console.log(newTeam);
+  //response.render(__dirname + '/views/pages/teams', {teams: teams});
+
+  var sqlChangeOrder = "UPDATE clothingOrder SET clothingId = (SELECT clothingId FROM clothing WHERE clothingType = '" + type + "' AND clothingColor = '" + color + "'), clothingSize = '" + size + "', received = '" + isReceived + "' WHERE orderId = '" + orderId + "';";
+  //console.log(sqlChangeOrder);
+  connection.query(sqlChangeOrder, function(err,result){
+    if (err) throw err;
+    response.redirect("/manageorders");
+    //console.log("hi");
+  });
+
+  //response.redirect("/manageorders");
 });
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
