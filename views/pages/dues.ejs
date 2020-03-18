@@ -12,11 +12,21 @@
       <input class="top-margin w3-button w3-black" type="submit" name="submit" value="Document due" />
   </form>
 
-  <ul>
+  <table class="w3-table-all">
+    <th>Dues</th>
+    <tr>
+      <td><b>First</b></td>
+      <td><b>Last</b></td>
+      <td><b>Amount</b></td>
+    </tr>
     <% for(var i=0; i<dues.length; i++) { %>
-      <li><%= dues[i].firstName %> <%= dues[i].lastName %> <%= dues[i].amountPaid %></li>
+      <tr>
+        <td><%= dues[i].firstName %></td>
+        <td><%= dues[i].lastName %></td>
+        <td><%= dues[i].amountPaid %></td>
+      </tr>
     <% } %>
-  </ul>
+  </table>
 
     <script>
         function myFunction() {

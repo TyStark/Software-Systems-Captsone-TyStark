@@ -16,11 +16,21 @@
       <input class="top-margin w3-button w3-black" type="submit" name="submit" value="Add player to team" />
   </form>
 
-  <ul>
+  <table class="w3-table-all">
+    <th>Registered</th>
+    <tr>
+      <td><b>First</b></td>
+      <td><b>Last</b></td>
+      <td><b>Team</b></td>
+    </tr>
     <% for(var i=0; i<registered.length; i++) { %>
-      <li><%= registered[i].firstName %> <%= registered[i].lastName %> <%= registered[i].teamName %></li>
+      <tr>
+        <td><%= registered[i].firstName %></td>
+        <td><%= registered[i].lastName %></td>
+        <td><%= registered[i].teamName %></td>
+      </tr>
     <% } %>
-  </ul>
+  </table>
 
     <script>
         function myFunction() {

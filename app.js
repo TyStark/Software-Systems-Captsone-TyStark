@@ -302,18 +302,21 @@ app.post('/changeorder', function(request,response){
   //console.log(isReceived);
 
 
-  var editedOrderString = '{"orderId": "'+ orderId +'", firstName":  "'+ firstName +'" , "lastName":  "'+ lastName +'" , "clothingType": "'+ type +'", "clothingColor": "'+ color +'", "clothingSize": "'+ size +'", "recieved": "'+ isReceived +'",}';
+  var editedOrderString = '{"orderId": "'+ orderId +'", "firstName":  "'+ firstName +'" , "lastName":  "'+ lastName +'" , "clothingType": "'+ type +'", "clothingColor": "'+ color +'", "clothingSize": "'+ size +'", "received": '+ isReceived +'}';
   //console.log("lololol");
   //console.log(newDueString);
   var editedOrder = JSON.parse(editedOrderString)
 
   // FIND INDEX OF ORDER TO ALTER IT
-  console.log()orders
+  //console.log(orders)
   for(var i=0; i<orders.length; i++){
     if(orders[i].orderId == orderId)
       orders.splice(i,1);
-      console.log(orders);
+      //console.log(orders);
   }
+  
+  orders.push(editedOrder);
+  //console.log(orders);
   //console.log(orders.findIndex("Tyler"));
   //console.log();
   //console.log(newTeam);
