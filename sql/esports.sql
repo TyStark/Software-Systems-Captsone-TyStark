@@ -6,6 +6,14 @@ DROP USER IF EXISTS 'esports'@'localhost';
 CREATE USER 'esportsadmin'@'localhost' IDENTIFIED BY 'L3W15 35P0RT5';
 GRANT SELECT, INSERT, UPDATE, DELETE ON esports.* TO 'esports'@'localhost';
 
+
+DROP TABLE IF EXISTS admin;
+CREATE TABLE admin (
+    adminId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    userName VARCHAR(20) NOT NULL,
+    userPassword VARCHAR(100) NOT NULL
+);
+
 DROP TABLE IF EXISTS members;
 CREATE TABLE members (
     memberId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,

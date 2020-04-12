@@ -1,9 +1,17 @@
 //jshint esversion:6
 
 const express = require('express');
-const ejs = require("ejs");
-const bodyParser = require("body-parser");
-var mysql = require('mysql');
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+/*
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+//const passportLocal(mysql) = require();
+*/
 
 const app = new express();
 
@@ -11,12 +19,62 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+/*
+app.use(session({
+  secret: 'I am bad at League of Legends.',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
+
+//app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+*/
+
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "esports"
+});
+
+/*
+  passport.use('local', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true //passback entire req to call back
+  } , function (req, username, password, done){
+        //if(!username || !password ) { return done(null, false); }
+        //var salt = '7fa73b47df808d36c5fe328546ddef8b9011b2c6';
+        connection.query("SELECT * FROM admin WHERE username = ?", [username], function(err, rows){
+            console.log(err); console.log(rows);
+          //if (err) return done();
+          //if(!rows.length){ return done(null, false, req.flash('message','Invalid username or password.')); }
+          //salt = salt+''+password;
+          var encPassword = "";
+          bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+            encPassword = hash;
+          });
+          var dbPassword  = rows[0].password;
+          //if(!(dbPassword == encPassword)){
+              //return done(null, false, req.flash('message','Invalid username or password.'));
+           //}
+          return done(null, rows[0]);
+        });
+      }
+  ));
+
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+passport.deserializeUser(function(id, done){
+  connection.query("SELECT * FROM admin WHERE id = "+ id, function (err, rows){
+      done(err, rows[0]);
   });
+});
+*/
 
 //SQL
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -173,6 +231,7 @@ app.get('/login', function(request,response){
     response.render(__dirname + '/views/pages/login');
 });
 
+/*
 app.get('/registration', function(request,response){
     response.render(__dirname + '/views/pages/registration', {teams: teams, registered: registered});
 });
@@ -191,8 +250,17 @@ app.get('/teams', function(request,response){
 });
 
 app.get('/admin', function(request,response){
+  /*
+  if(request.isAuthenticated()){
     response.render(__dirname + '/views/pages/admin');
+  }else {
+    response.redirect("/login");
+  }
+  *
+ //response.render(__dirname + '/views/pages/admin');
+ console.log("not allowed");
 });
+*/
 
 // POST
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -333,6 +401,65 @@ app.post('/changeorder', function(request,response){
   //response.redirect("/manageorders");
 });
 
+app.post('/checklogin', function(request,response){
+  var userName = request.body.userName;
+  var userPassword = request.body.password;
+  var redirectPage = request.body.redirectPage;
+
+  var hashedPassword = "";
+
+  var sqlFetchHashedPassword = "SELECT userPassword FROM admin WHERE userName = '"+ userName +"';";
+  connection.query(sqlFetchHashedPassword, function(err,result){
+    if (err) throw err;
+    hashedPassword = result[0].userPassword;
+    //console.log(hashedPassword);
+
+    bcrypt.compare(userPassword, hashedPassword, function(err, bcryptResult) {
+      // result == true
+      if(bcryptResult == true){
+        console.log("congrats!");
+        if(redirectPage == "Dues"){
+          response.render(__dirname + '/views/pages/dues', {dues: dues});
+        }
+        if(redirectPage == "Managa Orders"){
+          response.render(__dirname + '/views/pages/manageorders', {orders: orders, clothingType: clothingType, clothingColor: clothingColor, clothingSize: clothingSize, received: received});
+        }
+        if(redirectPage == "Registration"){
+          response.render(__dirname + '/views/pages/registration', {teams: teams, registered: registered});
+        }
+        if(redirectPage == "Teams"){
+          response.render(__dirname + '/views/pages/teams', {teams: teams});
+        }
+        //passport.authenticate("local");
+        //response.redirect("/admin");
+        //response.render(__dirname + '/views/pages/admin');
+      }else
+      {
+        console.log("Wrong password");
+      }
+    });
+
+    //response.redirect("/admin");
+  });
+
+ //response.redirect("/admin");
+
+});
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//Quickly create an admin to test
+app.get('/createadmin', function(request,response){
+  bcrypt.hash("lewisesports", saltRounds, function(err, hash) {
+    // Store hash in your password DB.
+    var sqlAddAdmin = "INSERT INTO admin (userName, userPassword) VALUES ('admin', '"+ hash +"');";
+    connection.query(sqlAddAdmin, function(err,result){
+      if (err) throw err;
+      response.render(__dirname + '/views/pages/admin');
+      //response.redirect("/admin");
+      //console.log("hi");
+    });
+  });
+});
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 var server = app.listen(process.env.PORT || 3000, function(){

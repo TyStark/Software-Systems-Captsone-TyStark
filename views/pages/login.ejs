@@ -8,8 +8,14 @@
 
     <div>
       <form action="/checklogin" method="post">
-        <p>Username <input class="w3-input w3-border w3-light-grey" type="text" name="firstName" maxlength="13" size="13" /></p>
-        <p>Password <input class="w3-input w3-border w3-light-grey" type="text" name="lastName" maxlength="30" size="30" /></p>
+        <p>Username <input class="w3-input w3-border w3-light-grey" type="text" name="userName" maxlength="13" size="13" /></p>
+        <p>Password <input class="w3-input w3-border w3-light-grey" type="password" name="password" maxlength="30" size="30" /></p>
+        <p>Redirect page: <select class="w3-select w3-border" name="redirectPage">
+          <option value="Dues">Dues</option>
+           <option value="Manage Orders">Manage Orders</option>
+           <option value="Registration">Registration</option>
+          <option value="Teams">Teams</option>
+       </select></p>
         <input class="top-margin w3-button w3-black" type="submit" name="submit" value="Login" />
       </form>
     </div>
