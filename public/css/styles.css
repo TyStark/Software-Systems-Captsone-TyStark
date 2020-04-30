@@ -1,0 +1,57 @@
+* {
+    border: 0;
+    margin: 0;
+}
+
+body{
+}
+
+.navbar {
+    background-color: #d92626;
+}
+
+.fa-discord {
+    color: #7289DA;
+}
+
+.fa-twitter {
+    color: #1da1f2;
+}
+
+.fa-twitch {
+   color: #6441a5;
+}
+
+  /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .header-logo {
+        height: 20vh;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .w3-card {
+        width: 85%;
+        margin: 0 auto;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}

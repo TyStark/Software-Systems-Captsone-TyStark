@@ -231,6 +231,10 @@ app.get('/login', function(request,response){
     response.render(__dirname + '/views/pages/login');
 });
 
+app.get('/admin', function(request,response){
+  response.render(__dirname + '/views/pages/admin');
+});
+
 /*
 app.get('/registration', function(request,response){
     response.render(__dirname + '/views/pages/registration', {teams: teams, registered: registered});

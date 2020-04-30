@@ -1,19 +1,44 @@
 <%- include("publicheader") -%>
 
-    <div class="w3-third w3-black">
-        Home
-    </div>
-    Lewis Esports
+<div class="w3-container w3-center w3-xxlarge">
+  <a href="https://discord.gg/aPRwxhH"><i class="fab fa-discord w3-margin"></i></a>
+  <a href="https://twitter.com/LewisUEsports"><i class="fab fa-twitter w3-margin"></i></a>
+  <a href="https://www.twitch.tv/lewisuniversity"><i class="fab fa-twitch w3-margin"></i></a>
+</div>
 
-    <script>
-        function myFunction() {
-          var x = document.getElementById("nav");
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-          } else { 
-            x.className = x.className.replace(" w3-show", "");
-          }
-        }
-    </script>
+<img class="header-logo" src="/img/eSportsLogo_Color.jpg" alt="Esports Logo">
+
+<div class="w3-card w3-section">
+  <a class="twitter-timeline" data-height="450" data-theme="light"
+    href="https://twitter.com/LewisUEsports?ref_src=twsrc%5Etfw">Tweets by LewisUEsports</a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+
+<div>
+  http://discord.gg/XRZYq4x
+</div>
+
+<div class="w3-container">
+  <form action="/newsletter" method="post">
+    <p>Email: <input class="w3-input w3-border w3-light-grey" type="email" name="email" maxlength="40" size="40" /></p>
+    <input class="top-margin w3-button w3-black" type="submit" name="submit" value="Sign Up" />
+  </form>
+</div>
+
+
+</div>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("nav");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
 </body>
+
 </html>

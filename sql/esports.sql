@@ -103,12 +103,6 @@ CREATE TABLE registration (
         ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS team;
-CREATE TABLE team (
-	teamId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	teamName varchar(60) NOT NULL
-);
-
 INSERT INTO members (firstName, lastName, email, phone, discordName) VALUES("Tyler", "Starkus", "tylerjstarkus@lewisu.edu", 8156307194, "Ty#1635");
 INSERT INTO members (firstName, lastName, email, discordName) VALUES("Leonard", "Lucheck", "leonardjlucheck@lewisu.edu", "\[LU\]KepperJohnson#1128");
 INSERT INTO members (firstName, lastName, email, discordName) VALUES("Michael", "Bojarski", "michaeldbojarski@lewisu.edu", "GamerFromHeck#3019");
