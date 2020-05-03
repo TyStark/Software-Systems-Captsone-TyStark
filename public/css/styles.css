@@ -3,11 +3,12 @@
     margin: 0;
 }
 
-body{
-}
-
 .navbar {
     background-color: #d92626;
+    border-style: solid;
+    border-color: dimgray;
+    border-bottom-width: 1px;
+
 }
 
 .fa-discord {
@@ -22,17 +23,64 @@ body{
    color: #6441a5;
 }
 
+.fa-user, .fa-envelope, .fa-user-cog {
+    color: #660000;
+}
+
+
+
+/* */
+
+
   /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+.hamburger {
+
+}
+
+    .social-media {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    
     .header-logo {
         height: 20vh;
         display: block;
-        margin: 0 auto;
+        margin: 0 auto 40px auto;
     }
 
     .w3-card {
         width: 85%;
         margin: 0 auto;
+    }
+
+    .text-section {
+        text-align: center;
+        margin: 45px 25px 15px 25px;
+    }
+
+    .newsletter-input {
+        display: inline-block;
+        width: 70%;
+    }
+
+    .newsletter-button {
+        display: inline-block;
+    }
+
+    .form-button {
+        display: block;
+        margin: 35px auto 0 auto;
+    }
+
+    .footer {
+        margin-top: 35px;
+        border-style: solid;
+        border-top-width: 2px;
+    }
+
+    .user {
+        display: inline-block;
     }
 }
 

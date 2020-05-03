@@ -16,7 +16,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const app = new express();
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 /*
@@ -34,10 +34,10 @@ app.use(passport.session());
 */
 
 var connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "esports"
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "esports"
 });
 
 /*
@@ -89,13 +89,12 @@ var clothingSize = ['S', 'M', 'L', "XL", "XXL"];
 var received = [0, 1];
 
 var sqlTeams = "SELECT * FROM teams;";
-connection.query(sqlTeams, function(err,result,fields){
+connection.query(sqlTeams, function (err, result, fields) {
   if (err) throw err;
   //console.log(result[0].teamName);
   //test = String(result[0].teamName);
 
-  for(var i=0; i<result.length; i++)
-  {
+  for (var i = 0; i < result.length; i++) {
     //console.log(result[i].teamName);
     teams.push(result[i].teamName);
   }
@@ -103,13 +102,12 @@ connection.query(sqlTeams, function(err,result,fields){
 
 //var sqlRegistered = "SELECT m.firstName, m.lastName, t.teamName FROM members m CROSS JOIN teams t WHERE memberId IN (SELECT memberId FROM registration) AND teamId IN (SELECT teamId FROM registration);";
 var sqlRegistered = "SELECT m.firstName, m.lastName, t.teamName FROM registration r JOIN members m ON r.memberId = m.memberId JOIN teams t ON r.teamId = t.teamId;"
-connection.query(sqlRegistered, function(err,result,fields){
+connection.query(sqlRegistered, function (err, result, fields) {
   if (err) throw err;
   //console.log(result[0].teamName);
   //test = String(result[0].teamName);
 
-  for(var i=0; i<result.length; i++)
-  {
+  for (var i = 0; i < result.length; i++) {
     //console.log(result[i].teamName);
     registered.push(result[i]);
     //console.log("ok");
@@ -120,13 +118,12 @@ connection.query(sqlRegistered, function(err,result,fields){
 });
 
 var sqlDues = "SELECT m.firstName, m.lastName, d.amountPaid FROM dues d JOIN members m ON d.memberId = m.memberId;"
-connection.query(sqlDues, function(err,result,fields){
+connection.query(sqlDues, function (err, result, fields) {
   if (err) throw err;
   //console.log(result[0].teamName);
   //test = String(result[0].teamName);
 
-  for(var i=0; i<result.length; i++)
-  {
+  for (var i = 0; i < result.length; i++) {
     //console.log(result[i].teamName);
     dues.push(result[i]);
     //console.log("ok");
@@ -137,13 +134,12 @@ connection.query(sqlDues, function(err,result,fields){
 });
 
 var sqlOrders = "SELECT o.orderId, m.firstName, m.lastName, c.clothingType, c.clothingColor, o.clothingSize, o.received FROM clothingOrder o JOIN members m ON o.memberId = m.memberId JOIN clothing c ON o.clothingId = c.clothingId;";
-connection.query(sqlOrders, function(err,result,fields){
+connection.query(sqlOrders, function (err, result, fields) {
   if (err) throw err;
   //console.log(result[0].teamName);
   //test = String(result[0].teamName);
 
-  for(var i=0; i<result.length; i++)
-  {
+  for (var i = 0; i < result.length; i++) {
     //console.log(result[i].teamName);
     orders.push(result[i]);
     //console.log("ok");
@@ -154,13 +150,12 @@ connection.query(sqlOrders, function(err,result,fields){
 });
 
 var sqlClothingType = "SELECT DISTINCT clothingType FROM clothing;";
-connection.query(sqlClothingType, function(err,result,fields){
+connection.query(sqlClothingType, function (err, result, fields) {
   if (err) throw err;
   //console.log(result[0].teamName);
   //test = String(result[0].teamName);
 
-  for(var i=0; i<result.length; i++)
-  {
+  for (var i = 0; i < result.length; i++) {
     //console.log(result[i].teamName);
     clothingType.push(result[i]);
     //console.log("ok");
@@ -211,27 +206,27 @@ connection.query(sqlReceived, function(err,result,fields){
 // GET
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-app.get('/', function(request,response){
-    response.render(__dirname + '/views/pages/index');
+app.get('/', function (request, response) {
+  response.render(__dirname + '/views/pages/index');
 });
 
-app.get('/competitive', function(request,response){
-    response.render(__dirname + '/views/pages/competitive');
+app.get('/competitive', function (request, response) {
+  response.render(__dirname + '/views/pages/competitive');
 });
 
-app.get('/contact', function(request,response){
-    response.render(__dirname + '/views/pages/contact');
+app.get('/contact', function (request, response) {
+  response.render(__dirname + '/views/pages/contact');
 });
 
-app.get('/clothingorder', function(request,response){
-    response.render(__dirname + '/views/pages/clothingorder');
+app.get('/clothingorder', function (request, response) {
+  response.render(__dirname + '/views/pages/clothingorder');
 });
 
-app.get('/login', function(request,response){
-    response.render(__dirname + '/views/pages/login');
+app.get('/login', function (request, response) {
+  response.render(__dirname + '/views/pages/login');
 });
 
-app.get('/admin', function(request,response){
+app.get('/admin', function (request, response) {
   response.render(__dirname + '/views/pages/admin');
 });
 
@@ -269,95 +264,110 @@ app.get('/admin', function(request,response){
 // POST
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-app.post('/clothingorder', function(request,response){
-    var firstName = request.body.firstName;
-    var lastName = request.body.lastName;
-    var clothingType = request.body.clothingType;
-    var clothingColor = request.body.clothingColor;
-    var clothingSize = request.body.clothingSize;
+app.post('/clothingorder', function (request, response) {
+  var firstName = request.body.firstName;
+  var lastName = request.body.lastName;
+  var clothingType = request.body.clothingType;
+  var clothingColor = request.body.clothingColor;
+  var clothingSize = request.body.clothingSize;
 
-    //console.log(firstName);
-    //console.log(lastName);
-    //console.log(clothingType);
-    //console.log(clothingColor);
-    //console.log(clothingSize);
+  //console.log(firstName);
+  //console.log(lastName);
+  //console.log(clothingType);
+  //console.log(clothingColor);
+  //console.log(clothingSize);
 
-    var selectionToSQL = "INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberID FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), (SELECT clothingId FROM clothing WHERE clothingType = '" + clothingType + "' AND clothingColor = '" + clothingColor + "'), '" + clothingSize + "');"
-    connection.query(selectionToSQL, function(err,result){
+  var testSelectionSQL = "SELECT firstName, lastName FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'";
+  connection.query(testSelectionSQL, function (err, result) {
+    if (err) throw err;
+    
+    if(result.length == 0){
+
+    }
+    else {
+      var selectionToSQL = "INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberID FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), (SELECT clothingId FROM clothing WHERE clothingType = '" + clothingType + "' AND clothingColor = '" + clothingColor + "'), '" + clothingSize + "');"
+      connection.query(selectionToSQL, function (err, result) {
         if (err) throw err;
-    });
+      });
+    }
+  });
 
-    response.render(__dirname + '/views/pages/clothingorder');
+//  var selectionToSQL = "INSERT INTO clothingOrder (memberId, clothingId, clothingSize) VALUES ((SELECT memberID FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), (SELECT clothingId FROM clothing WHERE clothingType = '" + clothingType + "' AND clothingColor = '" + clothingColor + "'), '" + clothingSize + "');"
+//  connection.query(selectionToSQL, function (err, result) {
+//    if (err) throw err;
+//  });
+
+  response.render(__dirname + '/views/pages/clothingorder');
 });
 
-app.post('/addteam', function(request,response){
-    var newTeam = request.body.newTeam;
+app.post('/addteam', function (request, response) {
+  var newTeam = request.body.newTeam;
 
-    teams.push(newTeam);
-    //console.log(newTeam);
-    //response.render(__dirname + '/views/pages/teams', {teams: teams});
+  teams.push(newTeam);
+  //console.log(newTeam);
+  //response.render(__dirname + '/views/pages/teams', {teams: teams});
 
-    var sqlAddTeam = "INSERT INTO teams (teamName) VALUES ('" + newTeam + "');";
-    //console.log(sqlAddTeam);
-    connection.query(sqlAddTeam, function(err,result){
-      if (err) throw err;
-      response.redirect("/teams");
-      //console.log("hi");
-    });
-    //response.redirect("/teams");
+  var sqlAddTeam = "INSERT INTO teams (teamName) VALUES ('" + newTeam + "');";
+  //console.log(sqlAddTeam);
+  connection.query(sqlAddTeam, function (err, result) {
+    if (err) throw err;
+    response.redirect("/teams");
+    //console.log("hi");
+  });
+  //response.redirect("/teams");
 });
 
-app.post('/registerplayer', function(request,response){
-    var firstName = request.body.firstName;
-    var lastName = request.body.lastName;
-    var teamName = request.body.teamName;
+app.post('/registerplayer', function (request, response) {
+  var firstName = request.body.firstName;
+  var lastName = request.body.lastName;
+  var teamName = request.body.teamName;
 
-    var registeredPlayerString = '{"firstName":  "'+ firstName +'" ,"lastName":  "'+ lastName +'" ,"teamName":  "'+ teamName +'" }';
-    //console.log("lololol");
-    //console.log(registeredPlayerString);
-    var registeredplayer = JSON.parse(registeredPlayerString)
+  var registeredPlayerString = '{"firstName":  "' + firstName + '" ,"lastName":  "' + lastName + '" ,"teamName":  "' + teamName + '" }';
+  //console.log("lololol");
+  //console.log(registeredPlayerString);
+  var registeredplayer = JSON.parse(registeredPlayerString)
 
-    registered.push(registeredplayer);
-    //console.log(newTeam);
-    //response.render(__dirname + '/views/pages/teams', {teams: teams});
+  registered.push(registeredplayer);
+  //console.log(newTeam);
+  //response.render(__dirname + '/views/pages/teams', {teams: teams});
 
-    var sqlAddTeam = "INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), (SELECT teamId FROM teams WHERE teamName = '" + teamName + "'), 'active');";
-    //console.log(sqlAddTeam);
-    connection.query(sqlAddTeam, function(err,result){
-      if (err) throw err;
-      response.redirect("/registration");
-      //console.log("hi");
-    });
+  var sqlAddTeam = "INSERT INTO registration (memberId, teamId, registrationStatus) VALUES ((SELECT memberId FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), (SELECT teamId FROM teams WHERE teamName = '" + teamName + "'), 'active');";
+  //console.log(sqlAddTeam);
+  connection.query(sqlAddTeam, function (err, result) {
+    if (err) throw err;
+    response.redirect("/registration");
+    //console.log("hi");
+  });
 
-    //response.redirect("/registration");
+  //response.redirect("/registration");
 });
 
-app.post('/documentdue', function(request,response){
-    var firstName = request.body.firstName;
-    var lastName = request.body.lastName;
-    var amount = request.body.amount;
+app.post('/documentdue', function (request, response) {
+  var firstName = request.body.firstName;
+  var lastName = request.body.lastName;
+  var amount = request.body.amount;
 
-    var newDueString = '{"firstName":  "'+ firstName +'" ,"lastName":  "'+ lastName +'" ,"amountPaid":  "'+ amount +'" }';
-    //console.log("lololol");
-    //console.log(newDueString);
-    var newDue = JSON.parse(newDueString)
+  var newDueString = '{"firstName":  "' + firstName + '" ,"lastName":  "' + lastName + '" ,"amountPaid":  "' + amount + '" }';
+  //console.log("lololol");
+  //console.log(newDueString);
+  var newDue = JSON.parse(newDueString)
 
-    dues.push(newDue);
-    //console.log(newTeam);
-    //response.render(__dirname + '/views/pages/teams', {teams: teams});
+  dues.push(newDue);
+  //console.log(newTeam);
+  //response.render(__dirname + '/views/pages/teams', {teams: teams});
 
-    var sqlAddTeam = "INSERT INTO dues (memberId, amountPaid) VALUES ((SELECT memberId FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), " + amount + ");";
-    //console.log(sqlAddTeam);
-    connection.query(sqlAddTeam, function(err,result){
-      if (err) throw err;
-      response.redirect("/dues");
-      //console.log("hi");
-    });
+  var sqlAddTeam = "INSERT INTO dues (memberId, amountPaid) VALUES ((SELECT memberId FROM members WHERE firstname = '" + firstName + "' AND lastName = '" + lastName + "'), " + amount + ");";
+  //console.log(sqlAddTeam);
+  connection.query(sqlAddTeam, function (err, result) {
+    if (err) throw err;
+    response.redirect("/dues");
+    //console.log("hi");
+  });
 
-    //response.redirect("/registration");
+  //response.redirect("/registration");
 });
 
-app.post('/changeorder', function(request,response){
+app.post('/changeorder', function (request, response) {
   var orderId = request.body.orderId;
   var firstName = request.body.firstName;
   var lastName = request.body.lastName;
@@ -374,19 +384,19 @@ app.post('/changeorder', function(request,response){
   //console.log(isReceived);
 
 
-  var editedOrderString = '{"orderId": "'+ orderId +'", "firstName":  "'+ firstName +'" , "lastName":  "'+ lastName +'" , "clothingType": "'+ type +'", "clothingColor": "'+ color +'", "clothingSize": "'+ size +'", "received": '+ isReceived +'}';
+  var editedOrderString = '{"orderId": "' + orderId + '", "firstName":  "' + firstName + '" , "lastName":  "' + lastName + '" , "clothingType": "' + type + '", "clothingColor": "' + color + '", "clothingSize": "' + size + '", "received": ' + isReceived + '}';
   //console.log("lololol");
   //console.log(newDueString);
   var editedOrder = JSON.parse(editedOrderString)
 
   // FIND INDEX OF ORDER TO ALTER IT
   //console.log(orders)
-  for(var i=0; i<orders.length; i++){
-    if(orders[i].orderId == orderId)
-      orders.splice(i,1);
-      //console.log(orders);
+  for (var i = 0; i < orders.length; i++) {
+    if (orders[i].orderId == orderId)
+      orders.splice(i, 1);
+    //console.log(orders);
   }
-  
+
   orders.push(editedOrder);
   //console.log(orders);
   //console.log(orders.findIndex("Tyler"));
@@ -396,7 +406,7 @@ app.post('/changeorder', function(request,response){
 
   var sqlChangeOrder = "UPDATE clothingOrder SET clothingId = (SELECT clothingId FROM clothing WHERE clothingType = '" + type + "' AND clothingColor = '" + color + "'), clothingSize = '" + size + "', received = '" + isReceived + "' WHERE orderId = '" + orderId + "';";
   //console.log(sqlChangeOrder);
-  connection.query(sqlChangeOrder, function(err,result){
+  connection.query(sqlChangeOrder, function (err, result) {
     if (err) throw err;
     response.redirect("/manageorders");
     //console.log("hi");
@@ -405,40 +415,40 @@ app.post('/changeorder', function(request,response){
   //response.redirect("/manageorders");
 });
 
-app.post('/checklogin', function(request,response){
+app.post('/checklogin', function (request, response) {
   var userName = request.body.userName;
   var userPassword = request.body.password;
   var redirectPage = request.body.redirectPage;
+  console.log(redirectPage);
 
   var hashedPassword = "";
 
-  var sqlFetchHashedPassword = "SELECT userPassword FROM admin WHERE userName = '"+ userName +"';";
-  connection.query(sqlFetchHashedPassword, function(err,result){
+  var sqlFetchHashedPassword = "SELECT userPassword FROM admin WHERE userName = '" + userName + "';";
+  connection.query(sqlFetchHashedPassword, function (err, result) {
     if (err) throw err;
     hashedPassword = result[0].userPassword;
     //console.log(hashedPassword);
 
-    bcrypt.compare(userPassword, hashedPassword, function(err, bcryptResult) {
+    bcrypt.compare(userPassword, hashedPassword, function (err, bcryptResult) {
       // result == true
-      if(bcryptResult == true){
-        console.log("congrats!");
-        if(redirectPage == "Dues"){
-          response.render(__dirname + '/views/pages/dues', {dues: dues});
+      if (bcryptResult == true) {
+        console.log("successful login");
+        if (redirectPage == "Dues") {
+          response.render(__dirname + '/views/pages/dues', { dues: dues });
         }
-        if(redirectPage == "Managa Orders"){
-          response.render(__dirname + '/views/pages/manageorders', {orders: orders, clothingType: clothingType, clothingColor: clothingColor, clothingSize: clothingSize, received: received});
+        if (redirectPage == "ManageOrders") {
+          response.render(__dirname + '/views/pages/manageorders', { orders: orders, clothingType: clothingType, clothingColor: clothingColor, clothingSize: clothingSize, received: received });
         }
-        if(redirectPage == "Registration"){
-          response.render(__dirname + '/views/pages/registration', {teams: teams, registered: registered});
+        if (redirectPage == "Registration") {
+          response.render(__dirname + '/views/pages/registration', { teams: teams, registered: registered });
         }
-        if(redirectPage == "Teams"){
-          response.render(__dirname + '/views/pages/teams', {teams: teams});
+        if (redirectPage == "Teams") {
+          response.render(__dirname + '/views/pages/teams', { teams: teams });
         }
         //passport.authenticate("local");
         //response.redirect("/admin");
         //response.render(__dirname + '/views/pages/admin');
-      }else
-      {
+      } else {
         console.log("Wrong password");
       }
     });
@@ -446,17 +456,17 @@ app.post('/checklogin', function(request,response){
     //response.redirect("/admin");
   });
 
- //response.redirect("/admin");
+  //response.redirect("/admin");
 
 });
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //Quickly create an admin to test
-app.get('/createadmin', function(request,response){
-  bcrypt.hash("lewisesports", saltRounds, function(err, hash) {
+app.get('/createadmin', function (request, response) {
+  bcrypt.hash("lewisesports", saltRounds, function (err, hash) {
     // Store hash in your password DB.
-    var sqlAddAdmin = "INSERT INTO admin (userName, userPassword) VALUES ('admin', '"+ hash +"');";
-    connection.query(sqlAddAdmin, function(err,result){
+    var sqlAddAdmin = "INSERT INTO admin (userName, userPassword) VALUES ('admin', '" + hash + "');";
+    connection.query(sqlAddAdmin, function (err, result) {
       if (err) throw err;
       response.render(__dirname + '/views/pages/admin');
       //response.redirect("/admin");
@@ -466,6 +476,6 @@ app.get('/createadmin', function(request,response){
 });
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-var server = app.listen(process.env.PORT || 3000, function(){
-    console.log("Server running on port 3000");
+var server = app.listen(process.env.PORT || 3000, function () {
+  console.log("Server running on port 3000");
 });

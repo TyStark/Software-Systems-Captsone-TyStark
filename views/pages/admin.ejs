@@ -1,20 +1,24 @@
 <%- include("adminheader") -%>
 
+<div>
+  <i class="fas fa-user-cog w3-xxlarge w3-margin-top w3-margin-left w3-margin-right"></i>
+  <h2 class="w3-medium user"><b>Admin Users Only</b></h2>
+</div>
 
-    <div class="w3-third w3-black">
-        Admin
-    </div>
-    Lewis Esports Admin
+<div class="w3-card">
+  <h1 class="w3-large w3-padding">This is the admin side of this web app. Only admins should be navigating to the pages from the navigation bar on this page. This is for managing Lewis Esports Club's data. You will be required to sign in with an admin account.</h1>
+</div>
 
-    <script>
-        function myFunction() {
-          var x = document.getElementById("nav");
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-          } else { 
-            x.className = x.className.replace(" w3-show", "");
-          }
-        }
-    </script>
+<script>
+  function myFunction() {
+    var x = document.getElementById("nav");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
 </body>
+
 </html>
