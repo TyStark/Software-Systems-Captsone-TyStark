@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/TyStark/Software-Systems-Captsone-TyStark#readme",
   "dependencies": {
-    "bcrypt": "^3.0.8",
     "bcrypt-nodejs": "0.0.3",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
