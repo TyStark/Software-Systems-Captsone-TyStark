@@ -2,6 +2,9 @@
   "name": "software-systems-captsone-tystark",
   "version": "1.0.0",
   "description": "Github repository for Software Systems Capstone project.",
+  "engines": {
+    "npm": "6.x"
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
