@@ -517,7 +517,11 @@ app.post('/checklogin', function (request, response) {
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //Quickly create an admin to test
 app.get('/createadmin', function (request, response) {
-  bcrypt.hash("lewisesports", saltRounds, null, function (err, hash) {
+  salt = "idk";
+  genSalt(saltRounds, function(e,r){
+    salt = r;
+  });
+  bcrypt.hash("lewisesports", r, null, function (err, hash) {
     console.log(err);
     // Store hash in your password DB.
     console.log(hash)
