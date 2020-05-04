@@ -521,7 +521,7 @@ app.get('/createadmin', function (request, response) {
   bcrypt.genSalt(saltRounds, function(e,r){
     salt = r;
   });
-  bcrypt.hash("lewisesports", r, null, function (err, hash) {
+  bcrypt.hash("lewisesports", salt, null, function (err, hash) {
     console.log(err);
     // Store hash in your password DB.
     console.log(hash)
