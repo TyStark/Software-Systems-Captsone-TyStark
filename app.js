@@ -518,6 +518,7 @@ app.post('/checklogin', function (request, response) {
 //Quickly create an admin to test
 app.get('/createadmin', function (request, response) {
   bcrypt.hash("lewisesports", saltRounds, null, function (err, hash) {
+    console.log(err);
     // Store hash in your password DB.
     console.log(hash)
     var sqlAddAdmin = "INSERT INTO admin (userName, userPassword) VALUES ('admin', '" + hash + "');";
