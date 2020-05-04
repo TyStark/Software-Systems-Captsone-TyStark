@@ -518,7 +518,7 @@ app.post('/checklogin', function (request, response) {
 //Quickly create an admin to test
 app.get('/createadmin', function (request, response) {
   salt = "idk";
-  genSalt(saltRounds, function(e,r){
+  bcrypt.genSalt(saltRounds, function(e,r){
     salt = r;
   });
   bcrypt.hash("lewisesports", r, null, function (err, hash) {
