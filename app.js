@@ -37,7 +37,7 @@ app.use(passport.session());
 
 var connection = mysql.createConnection({
   host: "localhost", //"us-cdbr-east-06.cleardb.net", //localhost
-  user: "esportsadmin",//"bf6ad4e5ad73d5", //esportsadmin
+  user: "root",//"bf6ad4e5ad73d5", //esportsadmin
   password: "",//"09620b33", // leave empty quotes
   database: "esports"//"heroku_23e2dcc4b18babe" //esports
 });
