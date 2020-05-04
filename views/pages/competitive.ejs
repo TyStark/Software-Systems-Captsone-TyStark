@@ -1,19 +1,36 @@
 <%- include("publicheader") -%>
 
-    <div class="w3-third w3-black">
-        Competitive
-    </div>
-    Lewis Esports
+<h1 class="w3-margin-left w3-margin-bottom">Teams</h1>
 
-    <script>
-        function myFunction() {
-          var x = document.getElementById("nav");
-          if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-          } else { 
-            x.className = x.className.replace(" w3-show", "");
-          }
-        }
-    </script>
+<% for(var i=0; i<teams.length; i++) { %>
+  <div class="w3-card card-spacing">
+    <table class="w3-table w3-bordered">
+      <th><%= teams[i] %></th>
+      <th></th>
+      <% for(var j=0; j<registered.length; j++) { %>
+        <% if(registered[j].teamName == teams[i]) { %>
+      <tr>
+        <td><%= registered[j].firstName %></td>
+        <td><%= registered[j].lastName %></td>
+      </tr>
+      <% } %>
+      <% } %>
+     
+    </table>
+    
+  </div>
+  <% } %>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("nav");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
 </body>
+
 </html>

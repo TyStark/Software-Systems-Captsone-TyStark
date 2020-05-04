@@ -103,7 +103,7 @@ CREATE TABLE registration (
         ON DELETE CASCADE
 );
 
-INSERT INTO members (firstName, lastName, email, phone, discordName) VALUES("Tyler", "Starkus", "tylerjstarkus@lewisu.edu", 8156307194, "Ty#1635");
+INSERT INTO members (firstName, lastName, email, discordName) VALUES("Tyler", "Starkus", "tylerjstarkus@lewisu.edu", "Ty#1635");
 INSERT INTO members (firstName, lastName, email, discordName) VALUES("Leonard", "Lucheck", "leonardjlucheck@lewisu.edu", "\[LU\]KepperJohnson#1128");
 INSERT INTO members (firstName, lastName, email, discordName) VALUES("Michael", "Bojarski", "michaeldbojarski@lewisu.edu", "GamerFromHeck#3019");
 INSERT INTO members (firstName, lastName, email, discordName) VALUES("Brendan", "Cagampang", "brendanhcagampang@lewisu.edu", "iReekHavok#1168");

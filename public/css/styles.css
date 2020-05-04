@@ -73,6 +73,11 @@
         margin: 35px auto 0 auto;
     }
 
+    .register-button {
+        display: block;
+        margin: 15px auto 0 auto;
+    }
+
     .footer {
         margin-top: 35px;
         border-style: solid;
@@ -81,6 +86,10 @@
 
     .user {
         display: inline-block;
+    }
+
+    .card-spacing {
+        margin-bottom: 55px;
     }
 }
 

@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const https = require('https');
+const makeRequest = require('request');
 /*
 const session = require('express-session');
 const passport = require('passport');
@@ -211,7 +213,7 @@ app.get('/', function (request, response) {
 });
 
 app.get('/competitive', function (request, response) {
-  response.render(__dirname + '/views/pages/competitive');
+  response.render(__dirname + '/views/pages/competitive', { teams: teams, registered: registered });
 });
 
 app.get('/contact', function (request, response) {
@@ -263,6 +265,58 @@ app.get('/admin', function(request,response){
 
 // POST
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+app.post('/memberregister', function (request, response) {
+var first = request.body.first;
+var last = request.body.last;
+var registeremail = request.body.registeremail;
+console.log("" + first + " " + last);
+
+memberRegisterSQL = "INSERT INTO members (firstName, lastName, email) VALUES ('"+ first + "', '" + last + "', '" + registeremail + "');";
+console.log(memberRegisterSQL);
+connection.query(memberRegisterSQL, function (err, result) {
+  if (err) throw err;
+  response.redirect("/");
+});
+
+});
+
+app.post('/newsletter', function (request, response) {
+  //459c5962c2
+  //4938bd6f3193745c1930c926cf6d601a-us4
+  var newsfirst = request.body.newsfirst;
+  var newslast = request.body.newslast;
+  var email = request.body.email;
+  console.log(email);
+
+  var data = {
+    members: [
+      {
+        email_address: email,
+        status: "subscribed",
+        merge_fields: {
+          FNAME: newsfirst,
+          LNAME: newslast
+        }
+      }
+    ]
+  };
+
+  var jsonData = JSON.stringify(data);
+
+  var options = {
+    url: "https://us4.api.mailchimp.com/3.0/lists/459c5962c2",
+    method: "POST",
+    headers: {
+      "Authorization": "LewisEsports 4938bd6f3193745c1930c926cf6d601a-us4"
+    },
+    body: jsonData
+  };
+  makeRequest(options, function(error,res,body){
+    response.redirect("/");
+  });
+
+});
 
 app.post('/clothingorder', function (request, response) {
   var firstName = request.body.firstName;

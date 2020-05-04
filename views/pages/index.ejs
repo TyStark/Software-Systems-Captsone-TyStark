@@ -15,14 +15,28 @@
 </div>
 
 <div class="text-section">
+  <p>If you are a Lewis University student, you can register yourself below. You must be registered to place clothing orders.</p>
+</div>
+
+<div class="w3-container">
+  <form action="/memberregister" method="post">
+    <input class="w3-input w3-border w3-light-grey" name="first" autocomplete="off" placeholder="First name"/>
+    <input class="w3-input w3-border w3-light-grey" name="last" autocomplete="off" placeholder="Last name"/>
+    <input class="w3-input w3-border w3-light-grey" type="email" name="registeremail" autocomplete="off" placeholder="email"/>
+    <input class="top-margin w3-button w3-black register-button" type="submit" name="submit" value="Register" />
+  </form>
+</div>
+
+<div class="text-section">
   <p>You can sign up below to regularly receive information about club activity.</p>
 </div>
 
-
 <div class="w3-container">
   <form action="/newsletter" method="post">
-    <input class="w3-input w3-border w3-light-grey newsletter-input" type="email" name="email" autocomplete="off" placeholder="email"/>
-    <input class="top-margin w3-button w3-black newsletter-button" type="submit" name="submit" value="Sign Up" />
+    <input class="w3-input w3-border w3-light-grey" name="newsfirst" autocomplete="off" placeholder="First name"/>
+    <input class="w3-input w3-border w3-light-grey" name="newslast" autocomplete="off" placeholder="Last name"/>
+    <input class="w3-input w3-border w3-light-grey" type="email" name="email" autocomplete="off" placeholder="Email"/>
+    <input class="top-margin w3-button w3-black register-button" type="submit" name="submit" value="Sign Up" />
   </form>
 </div>
 
